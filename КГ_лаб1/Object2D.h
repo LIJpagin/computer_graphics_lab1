@@ -9,6 +9,7 @@ private:
 	struct Coord2D { double x, y; };
 	std::vector <Coord2D> points_ = { {0, 0} };
 	unsigned int action_point_ = 0;
+	unsigned int object_number_;
 	static unsigned int action_object_;
 	static unsigned int number_objects_;
 	int width_pen_ = 3;
@@ -16,7 +17,7 @@ private:
 protected:
 	void lineBresenham(HDC, int, int, int, int, COLORREF) const;
 public:
-	Object2D() { number_objects_++; }
+	Object2D() { object_number_ = number_objects_++; }
 	Object2D(double, ...);
 	void points(double, ...);
 

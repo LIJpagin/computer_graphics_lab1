@@ -1,9 +1,8 @@
 #include "Object2D.h"
-#include <ctime>
 
 char szClassName[] = "CG_WAPI_Template";
 const int WidthWndClass = 600, HeightWndClass = 600;
-Object2D objects[] = { {4, 200., 200., 400., 400., 200., 400., 200., 200.}, {2, 400., 200., 200., 400.},
+Object2D objects[] = { {2, 200., 200., 400., 400.}, {2, 400., 200., 200., 400.},
 					   {2, 200., 200., 200., 400.}, {2, 400., 200., 400., 400.} };
 
 void draw(HDC hdc) {
@@ -51,8 +50,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT messg, WPARAM wParam, LPARAM lParam) {
 		DeleteObject(hBmp);
 		hCmpDC = NULL;
 
-		EndPaint(hWnd, &ps); }
-		break;
+		EndPaint(hWnd, &ps);
+		} break;
 
 	case WM_ERASEBKGND:
 		return 1;
@@ -87,7 +86,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	HWND hWnd;
 	MSG lpMsg;
 	WNDCLASS WndClass;
-	srand(time(NULL));
 
 	// Заполняем структуру класса окна
 	WndClass.style = CS_HREDRAW | CS_VREDRAW;

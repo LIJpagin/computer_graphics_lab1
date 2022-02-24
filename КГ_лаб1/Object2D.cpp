@@ -7,7 +7,7 @@ Object2D::Object2D(double coord, ...) {
 	va_list vl;
 	points_.resize(coord);
 	va_start(vl, coord);
-	number_objects_++;
+	object_number_ = number_objects_++;
 	for (auto i = 0; i < coord * 2; i++)
 		if (i % 2) points_[i / 2].y = va_arg(vl, double);
 		else points_[i / 2].x = va_arg(vl, double);
@@ -58,7 +58,7 @@ void Object2D::rotation(double angle) {
 
 void Object2D::draw(HDC hdc) const {
 	HPEN hPen1;
-	hPen1 = CreatePen(PS_DASHDOT, width_pen_, color_pen_);
+	hPen1 = CreatePen(PS_DASHDOT, width_pen_, object_number_ == action_object_ ? 0xFFFFFF : color_pen_);
 	SelectObject(hdc, hPen1);
 	MoveToEx(hdc, (int)round(points_[0].x), (int)round(points_[0].y), NULL);
 	for (auto i = 1; i < points_.size(); i++)
@@ -96,7 +96,7 @@ void Object2D::lineBresenham(HDC hdc, int x0, int y0, int x1, int y1, COLORREF c
 void Object2D::drawBresenham(HDC hdc) const {
 	for (auto i = 0; i < points_.size() - 1; i++)
 		lineBresenham(hdc, (int)round(points_[i].x), (int)round(points_[i].y),
-			(int)round(points_[i + 1].x), (int)round(points_[i + 1].y), color_pen_);
+			(int)round(points_[i + 1].x), (int)round(points_[i + 1].y), object_number_ == action_object_ ? 0xFFFFFF : color_pen_);
 
 	HPEN hPen;
 	hPen = CreatePen(PS_DASHDOT, width_pen_, 0x0000FF);
